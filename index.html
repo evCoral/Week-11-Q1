@@ -1,0 +1,80 @@
+<html>
+<head>
+  <style>
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid rgb(243, 160, 160);
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type=submit] {
+      width: 100%;
+      background-color: #5a89e0;
+      color: rgb(46, 45, 45);
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type=submit]:hover {
+      background-color: #2764b4;
+    }
+    .container {
+      border-radius: 5px;
+      background-color: #ffffff;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form onsubmit="return false">
+      <label for="sentence">Enter a sentence:</label>
+      <input type="text" id="sentence" name="sentence">
+      <input type="submit" value="Submit" onclick="getLetterCount()">
+    </form>
+    <p id="output"></p>
+  </div>
+  
+  <script>
+    function getLetterCount() {
+      var sentence = document.getElementById("sentence").value;
+      var letters = {};
+      var maxLetter = "";
+      var maxCount = 0;
+      var minLetter = "";
+      var minCount = Number.MAX_SAFE_INTEGER;
+      
+      for (var i = 0; i < sentence.length; i++) {
+        var letter = sentence[i].toLowerCase();
+        if (letter.match(/[a-z]/i)) {
+          if (letters[letter]) {
+            letters[letter]++;
+          } else {
+            letters[letter] = 1;
+          }
+        }
+      }
+      
+      for (var letter in letters) {
+        if (letters[letter] > maxCount) {
+          maxLetter = letter;
+          maxCount = letters[letter];
+        }
+        if (letters[letter] < minCount) {
+          minLetter = letter;
+          minCount = letters[letter];
+        }
+      }
+      
+      document.getElementById("output").innerHTML = 
+        "High frequency letter '" + maxLetter + "' with " + maxCount + " Occurence count " + "And " +
+        "Low frequency letter '" + minLetter + "' with " + minCount + " Occurence count";
+    }
+  </script>
+</body>
+</html>
